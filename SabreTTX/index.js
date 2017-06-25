@@ -142,7 +142,13 @@ app.get('/api/events',function(req,res){
 }).catch((err) => {
     console.err(err);
 });
-   
 })
+
+function get_api (addr) {
+    http.get('https://maps.googleapis.com/maps/api/geocode/json?address="' + addr + '"', (res) => {
+        return res['geometry']['location'];
+    });
+}
+
 // Start server
 app.listen(3000)
