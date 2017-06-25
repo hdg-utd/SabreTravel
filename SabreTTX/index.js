@@ -17,9 +17,10 @@ app.get('/', function (req, res) {
     var params = {}
     /*
     params['origin'] = req.params['origin']
-    params['dest'] = req.params['dest']
+    params['destination'] = req.params['destination']
     params['departuredate'] = req.params['departuredate']
     params['returndate'] = req.params['returndate']
+    params['limit'] = 5
     */
 
     // For testing
@@ -27,7 +28,7 @@ app.get('/', function (req, res) {
     params['destination'] = 'LAX'
     params['departuredate'] = '2017-07-07'
     params['returndate'] = '2017-07-08'
-    params['limit'] = 5
+    params['limit'] = 10
 
     //console.log('request params\n' + req.params)
 
@@ -37,8 +38,19 @@ app.get('/', function (req, res) {
             console.log(error);
         } else {
             // Your success handling here
-            //console.log(JSON.stringify(JSON.parse(data)));
-            console.log(get_weekends(new Date('2017-07-07'), new Date('2017-07-16')))
+            var json = JSON.parse(data)['PricedItineraries'];
+            var res = {}
+
+            // Fill ticket info for each flight itenerary
+            for (i = 0; i < json.length; i++) {
+                console.log( json[i] );
+                console.log( json[i]['AirItineraryPricingInfo']
+                        ['PTC_FareBreakdowns']['PTC_FareBreakdown']
+                        ['PassengerFare']['TotalFare']['Amount'] );
+                console.log( json[i]['AirItinerary']['OriginDestinationOptions']
+                        ['OriginDestinationOption'].length );
+            }
+            //console.log(get_weekends(new Date('2017-07-07'), new Date('2017-07-16')))
         }
     })
 
