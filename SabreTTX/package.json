@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/hdg-utd/SabreTravel#readme",
   "dependencies": {
-    "dtrace-provider": "^0.8.3",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "sabre-dev-studio": "^1.2.0"
   }

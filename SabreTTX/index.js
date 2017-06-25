@@ -13,6 +13,19 @@ var sds = new SabreDevStudioFlight({
     uri:           base_url,
 })
 
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
+     // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+});
+
 app.get('/api/flight', function (req, res) {
     var params = {}
 
@@ -22,6 +35,8 @@ app.get('/api/flight', function (req, res) {
     params['returndate'] = req.params['returndate']
     params['limit'] = 5
 
+    console.log(params);
+    
     // For testing
     /*
     params['origin'] = 'JFK'
@@ -32,7 +47,7 @@ app.get('/api/flight', function (req, res) {
     */
 
     var js_res = {}
-
+    
     sds.instaflights_search(params, function(error, data) {
         if (error) {
             // Your error handling here
@@ -71,8 +86,8 @@ app.get('/api/flight', function (req, res) {
             }
 
         }
-
-        res.send(js_res)
+        res.json(js_res)
+        
     })
 })
 
