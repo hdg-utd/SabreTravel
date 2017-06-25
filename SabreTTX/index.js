@@ -4,6 +4,15 @@ var SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight
 var oauth2 = require('simple-oauth2')
 var app = express()
 
+var TevoClient = require('ticketevolution-node');
+var tkt_base_url='https://api.ticketevolution.com'
+var getevents_path='/v9/events'
+var tevoClient=new TevoClient({
+ apiToken:'SabreHackathon:TTX2017LasVegasNV',
+  apiSecretKey:'TicketEvolutionWasFoundedByBrokersIn2010',
+})
+
+
 var base_url = 'https://api.test.sabre.com'
 var if_path = '/v1/shop/flights/' // Insta flights path
 
@@ -95,5 +104,45 @@ app.get('/api/flight', function (req, res) {
     })
 })
 
+app.get('/api/events',function(req,res){
+    var js_res = {
+        events:[]
+    }
+    var search_params={}
+    search_params['lat']=req.params['lat']
+    search_params['lon']=req.params['lon']
+    search_params['within']=req.params['within']
+    search_params['occurs_at.gte']=req.params['occurs_at.gte']
+    search_params['occurs_at.lt']=req.params['occurs_at.lt']
+
+    /*
+    search_params['lat']=36.1207804
+    search_params['lon']=-115.156559
+    search_params['within']=20
+    search_params['occurs_at.gte']='2017-06-27'
+    search_params['occurs_at.lt']='2017-06-28'
+    */
+    var url='https://api.sandbox.ticketevolution.com/v9/events?lat='+search_params["lat"]+'&lon='+search_params["lon"]+'&within='
+    +search_params["within"]+'&occurs_at.gte='+search_params["occurs_at.gte"]+'&occurs_at.lt='+search_params["occurs_at.lt"]+'&page=1&per_page=7'
+    
+    var data=tevoClient.getJSON(url).then((json) => {
+    console.log('Got events from API.', json.total_entries," len ",json.events.length);
+  
+    for (i = 0; i < json.events.length; i++) {
+   
+                js_res.events.push({
+                "name" : json.events[i].name,
+                "time" : json.events[i].occurs_at_local,
+                 "venue" : json.events[i].venue.location,
+                 "availableTkt" : json.events[i].available_count
+            });
+              //  console.log(" name ",json.events[i].name," time ",json.events[i].occurs_at_local)
+    }
+    res.send(js_res)
+}).catch((err) => {
+    console.err(err);
+});
+   
+})
 // Start server
 app.listen(3000)
