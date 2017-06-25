@@ -1,6 +1,6 @@
 'use strict';
 
-var FlightInputController = sabrettx.controller('FlightInputController', function($scope, $http, initialFlights) {
+var FlightInputController = sabrettx.controller('FlightInputController', function($scope, $http) {
     $scope.saveFlightData = function(flight) {
         $scope.origin = flight.origin.toUpperCase();
         $scope.destination = flight.destination.toUpperCase();
@@ -11,10 +11,23 @@ var FlightInputController = sabrettx.controller('FlightInputController', functio
         
         if(countWeekendDays($scope.departing, $scope.return) / 2 >= 1) {
             
-            initialFlights.getFlights(function(flights) {
-                $scope.flights = flights;
-                console.log(flights);
-            });
+            $http({
+                url: 'http://localhost:3000/api/flight',
+                method: 'GET',
+                params: {
+                    origin: 'LAX',
+                    destination: 'DFW',
+                    departuredate: '2017-08-12',
+                    returndate: '2017-08-20'
+                }
+            }).then(
+                function(response) {
+                    $scope.flights = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
             
             $scope.no_weekend = false;
             $scope.yes_weekend = true;
@@ -101,32 +114,9 @@ function dateHttpGetFormat(d1) {
 
 sabrettx.filter('flightTime', function() {
     return function(date) {
+        console.log(date);
         var jsDate = new Date(date);
         var resultString = jsDate.toLocaleTimeString() + ' (' + jsDate.toDateString() + ')';
         return resultString;
      };
-});
-
-sabrettx.factory('initialFlights', function($http) {
-    return {
-        getFlights: function(successcb) {
-            $http({
-                url: 'http://localhost:3000/api/flight',
-                method: 'GET',
-                params: {
-                    origin: 'LAX',
-                    destination: 'DFW',
-                    departuredate: '2017-08-12',
-                    returndate: '2017-08-20'
-                }
-            }).then(
-                function(response) {
-                    successcb(response);
-                },
-                function(response) {
-                    console.log("Error: " + response);
-                }
-            );
-        }
-    };
 });

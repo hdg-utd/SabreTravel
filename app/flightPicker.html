@@ -61,8 +61,8 @@
                                     </md-card-header-text>
                                 </md-card-header>
                                 <md-card-content>
-                                    <label>Outbound: <span>{{ flight.DepartingFlight.depart_date | flightTime}} - {{ flight.DepartingFlight.arrival_date | flightTime}}</span></label><br>
-                                    <label>Return: <span>{{ flight.ReturnFlight.depart_date | flightTime}} - {{ flight.ReturnFlight.arrival_date | flightTime}}</span></label><br>
+                                    <label>Outbound: <span>{{ flight.DepartFlight.depart_date}} - {{ flight.DepartFlight.arrival_date}}</span></label><br>
+                                    <label>Return: <span>{{ flight.ReturnFlight.depart_date}} - {{ flight.ReturnFlight.arrival_date}}</span></label><br>
                                     <label>Price: <span>{{ flight.TotalFare | currency}}</span></label>
                                 </md-card-content>
                             </md-card>
