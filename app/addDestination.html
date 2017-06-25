@@ -23,21 +23,34 @@
 
         <H2> Add an extra destination to your ticket. Check out the choices below: </H2>
 
-            <md-card id="date" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Ibiza</span>
-                        <span class="md-subhead">+ $250</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-sm card-media"></div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button>Add Destination</md-button>
-                    <md-button>No Thanks</md-button>
-                </md-card-actions>
+            <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                <md-card-header>
+                    <md-card-header-text>
+                            <md-title style="font-size: 75%"><span class="airportTitle"> The PULSE & Camp PULSE On Tour Final Night Gala </span></md-title>
+                    </md-card-header-text>
+                </md-card-header>
+                <md-card-content>
+                    <label>Date:  <span> {{ flight.DepartingFlight.depart_date }}10:25 am July 5th </span></label>
+                    <label>City:  <span> {{ flight.DepartingFlight.depart_date }}Barcelona </span></label>
+                </md-card-content>
             </md-card>
+
+        <md-card id="card" ng-click="test()" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+            <md-card-header>
+                <md-card-header-text>
+                    <div class="row" style ="margin-left:0px; margin-right: 550px">
+                    <md-title style= "float: left"> <img style = " width: 50px; height: 50px; display:block;"  ng-src="assets/take-off.png"/><span class="airportTitle"> DFW </span><img style = " margin-left: 95px ;margin-bottom: 35px; display: inline; width: 50px; height: 50px"  ng-src="assets/forward.png"/></md-title>
+
+                    <md-title style= "float: right"><img style = " width: 50px; height: 50px; margin-left: 225px; display:block;" ng-src="assets/landing.png"/><span class="airportTitleDestination"> LAX </span></md-title>
+                    </div>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+                <label>Departure Flight: <span>{{ flight.DepartingFlight.depart_date }}10:25 am July 5th  <img style = " width: 250px; height: 50px"  ng-src="assets/horizontal.png"/>  10:25 am July 5th{{ flight.DepartingFlight.arrival_date }}</span></label><br>
+                <label>Return Flight: <span>{{ flight.ReturnFlight.depart_date }} 10:25 am July 5th <img style = " width: 250px; height: 50px"  ng-src="assets/horizontal.png"/>  10:25 am July 5th {{ flight.ReturnFlight.arrival_date }}</span></label><br>
+                <label>Price: <span>{{ flight.TotalFare | currency}} $ 575 </span></label>
+            </md-card-content>
+        </md-card>
     </div>
 </div>
 <!-- Angular Material requires Angular.js Libraries -->
