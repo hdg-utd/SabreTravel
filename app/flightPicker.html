@@ -39,11 +39,26 @@
                     </fieldset>
                     <button type="submit" ng-click="saveFlightData(flight)">Search</button>
                 </form>
-                <div>
-                    Origin: {{flightInput.origin}}
-                    Destination: {{flightInput.destination}}
-                    Departure: {{flightInput.departing}}
-                    Return: {{flightInput.return}}
+                <div id="no-flight" ng-show="no_weekend">
+                    No Free Weekends for your trip
+                </div>
+                <div id="flight-list" style="overflow-y: scroll;" ng-show="flight_check">
+                    <ul>
+                        <li ng-repeat="flight in flights">
+                            <label>{{ flight.origin }} to {{ flight.destination }}</label>
+                            <label> Departure: {{ flight.departing | date:'MM/dd/yyyy' }}</label>
+                            <label> Return: {{ flight.return | date:'MM/dd/yyyy' }}</label>
+                            <label> Price: {{ flight.price | currency }}</label>
+                        </li>
+                    </ul>
+                </div>
+                <div id="extras">
+                    <div id="flight-extra" style="overflow-y: scroll;" ng-show="weekend_flight">
+                        Flight Extras
+                    </div>
+                    <div id="show-extra" style="overflow-y: scroll;" ng-show="weekend_show">
+                        Show Extras
+                    </div>
                 </div>
             </div>
         </div>
