@@ -46,7 +46,7 @@ app.get('/api/flight', function (req, res) {
     params['limit'] = 10
     */
 
-    var js_res = {}
+    var js_result = [];
     
     sds.instaflights_search(params, function(error, data) {
         if (error) {
@@ -55,14 +55,16 @@ app.get('/api/flight', function (req, res) {
         } else {
             // Your success handling here
             var json = JSON.parse(data)['PricedItineraries'];
-
+            console.log("Length: " + json.length);
             // Fill ticket info for each flight itenerary
             for (i = 0; i < json.length; i++) {
                 // Extract depart flight info
                 // --------------------------
                 var df = json[i]['AirItinerary']['OriginDestinationOptions']
                         ['OriginDestinationOption'][0]['FlightSegment'];
-
+                
+                var js_res = {};
+                
                 js_res['DepartFlight'] = {}
                 js_res['DepartFlight']['stops'] = df.length-2;
                 js_res['DepartFlight']['depart_date'] = df[0]['DepartureDateTime'];
@@ -83,10 +85,12 @@ app.get('/api/flight', function (req, res) {
                 js_res['TotalFare'] = json[i]['AirItineraryPricingInfo']
                         ['PTC_FareBreakdowns']['PTC_FareBreakdown']
                         ['PassengerFare']['TotalFare']['Amount'];
+                
+                js_result.push(js_res);
             }
 
         }
-        res.json(js_res)
+        res.json(js_result)
         
     })
 })
