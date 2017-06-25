@@ -27,8 +27,7 @@ app.get('/', function (req, res) {
     params['destination'] = 'LAX'
     params['departuredate'] = '2017-07-07'
     params['returndate'] = '2017-07-08'
-    params['limit'] = 10
-    console.log(params)
+    params['limit'] = 5
 
     //console.log('request params\n' + req.params)
 
@@ -38,12 +37,33 @@ app.get('/', function (req, res) {
             console.log(error);
         } else {
             // Your success handling here
-            console.log(JSON.stringify(JSON.parse(data)));
+            //console.log(JSON.stringify(JSON.parse(data)));
+            console.log(get_weekends(new Date('2017-07-07'), new Date('2017-07-16')))
         }
     })
 
     res.send('hello world')
 })
+
+var get_weekends = function (start, end) {
+    weekend_dates = [];
+    d = start
+
+    while (d < end) {
+        var day = d.getDay();
+        console.log(day);
+
+        // If day is a weekend
+        if ( (day === 6) || (day === 0) ) {
+            console.log(new Date(d.getTime()) );
+            weekend_dates.push(new Date(d.getTime()) );
+        }
+
+        d.setDate(d.getDate() + 1);
+    }
+
+    return weekend_dates
+}
 
 
 // Start server
