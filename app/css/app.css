@@ -1,5 +1,5 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+    display: none !important;
 }
 
 .navbar {
@@ -12,6 +12,7 @@
 
 .jumbotron {
     text-align: center;
+    background-color: white;
 }
 
 body {
@@ -41,7 +42,7 @@ form #dates {
 }
 
 #departing {
-    float: left; 
+    float: left;
 }
 
 #return {
@@ -58,13 +59,14 @@ form #dates {
 }
 
 #flight-list {
-    height: 500px;
-    border: 1px solid black; 
+    height: 900px;
+    margin-bottom: 50px;
+
 }
 
 md-title .origin{
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 md-title .airportTitle{
@@ -74,9 +76,9 @@ md-title .airportTitle{
 
 
 md-title .airportTitleDestination {
-    margin-left: 225px;
     font-size: 250%;
     color: #344756;
+    margin-right: 400px;
 }
 
 md-card-content label span {
@@ -85,34 +87,38 @@ md-card-content label span {
 }
 
 #show-extra, #flight-extra {
-    height: 200px;
-    border: 1px solid red; 
+    height: 600px;
+    border: 1px solid red;
 }
 
 #extras {
-    display: inline-block;
     width: 100%;
+    height: 500px;
 }
 
 #flight-extra {
     float: left;
-    width: 65%;
+    width: 63%;
 }
 
 #show-extra {
     float: right;
-    width: 35%;
+    width: 33%;
+    padding-left: 22px;
+
 }
 
 #card {
-    margin-right: 100px;
-    margin-left: 100px;
-    padding-left: 100px;
-    padding-right: 100px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-right: 25px;
+    margin-left: 0px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
 }
 
 md-card:focus {
