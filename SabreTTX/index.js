@@ -4,6 +4,15 @@ var SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight
 var oauth2 = require('simple-oauth2')
 var app = express()
 
+var TevoClient = require('ticketevolution-node');
+var tkt_base_url='https://api.ticketevolution.com'
+var getevents_path='/v9/events'
+var tevoClient=new TevoClient({
+ apiToken:'SabreHackathon:TTX2017LasVegasNV',
+  apiSecretKey:'TicketEvolutionWasFoundedByBrokersIn2010',
+})
+
+
 var base_url = 'https://api.test.sabre.com'
 var if_path = '/v1/shop/flights/' // Insta flights path
 
@@ -13,15 +22,30 @@ var sds = new SabreDevStudioFlight({
     uri:           base_url,
 })
 
-app.get('/', function (req, res) {
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
+     // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+});
+
+app.get('/api/flight', function (req, res) {
     var params = {}
 
-    params['origin'] = req.params['origin']
-    params['destination'] = req.params['destination']
-    params['departuredate'] = req.params['departuredate']
-    params['returndate'] = req.params['returndate']
+    params['origin'] = req.query['origin']
+    params['destination'] = req.query['destination']
+    params['departuredate'] = req.query['departuredate']
+    params['returndate'] = req.query['returndate']
     params['limit'] = 5
 
+    console.log(req.query);
+    
     // For testing
     /*
     params['origin'] = 'JFK'
@@ -31,10 +55,8 @@ app.get('/', function (req, res) {
     params['limit'] = 10
     */
 
-    var js_res = {}
-
-    //console.log('request params\n' + req.params)
-
+    var js_result = [];
+    
     sds.instaflights_search(params, function(error, data) {
         if (error) {
             // Your error handling here
@@ -42,14 +64,16 @@ app.get('/', function (req, res) {
         } else {
             // Your success handling here
             var json = JSON.parse(data)['PricedItineraries'];
-
+            console.log("Length: " + json.length);
             // Fill ticket info for each flight itenerary
             for (i = 0; i < json.length; i++) {
                 // Extract depart flight info
                 // --------------------------
                 var df = json[i]['AirItinerary']['OriginDestinationOptions']
                         ['OriginDestinationOption'][0]['FlightSegment'];
-
+                
+                var js_res = {};
+                
                 js_res['DepartFlight'] = {}
                 js_res['DepartFlight']['stops'] = df.length-2;
                 js_res['DepartFlight']['depart_date'] = df[0]['DepartureDateTime'];
@@ -70,36 +94,55 @@ app.get('/', function (req, res) {
                 js_res['TotalFare'] = json[i]['AirItineraryPricingInfo']
                         ['PTC_FareBreakdowns']['PTC_FareBreakdown']
                         ['PassengerFare']['TotalFare']['Amount'];
+                
+                js_result.push(js_res);
             }
 
-            //console.log(get_weekends(new Date('2017-07-07'), new Date('2017-07-16')))
-
         }
-
-        res.send(js_res)
+        res.json(js_result)
+        
     })
 })
 
-var get_weekends = function (start, end) {
-    weekend_dates = [];
-    d = start
-
-    while (d < end) {
-        var day = d.getDay();
-        console.log(day);
-
-        // If day is a weekend
-        if ( (day === 6) || (day === 0) ) {
-            console.log(new Date(d.getTime()) );
-            weekend_dates.push(new Date(d.getTime()) );
-        }
-
-        d.setDate(d.getDate() + 1);
+app.get('/api/events',function(req,res){
+    var js_res = {
+        events:[]
     }
+    var search_params={}
+    search_params['lat']=req.params['lat']
+    search_params['lon']=req.params['lon']
+    search_params['within']=req.params['within']
+    search_params['occurs_at.gte']=req.params['occurs_at.gte']
+    search_params['occurs_at.lt']=req.params['occurs_at.lt']
 
-    return weekend_dates
-}
-
-
+    /*
+    search_params['lat']=36.1207804
+    search_params['lon']=-115.156559
+    search_params['within']=20
+    search_params['occurs_at.gte']='2017-06-27'
+    search_params['occurs_at.lt']='2017-06-28'
+    */
+    var url='https://api.sandbox.ticketevolution.com/v9/events?lat='+search_params["lat"]+'&lon='+search_params["lon"]+'&within='
+    +search_params["within"]+'&occurs_at.gte='+search_params["occurs_at.gte"]+'&occurs_at.lt='+search_params["occurs_at.lt"]+'&page=1&per_page=2'
+    
+    var data=tevoClient.getJSON(url).then((json) => {
+    console.log('Got events from API.', json.total_entries," len ",json.events.length);
+  
+    for (i = 0; i < json.events.length; i++) {
+   
+                js_res.events.push({
+                "name" : json.events[i].name,
+                "time" : json.events[i].occurs_at_local,
+                 "venue" : json.events[i].venue.location,
+                 "availableTkt" : json.events[i].available_count
+            });
+              //  console.log(" name ",json.events[i].name," time ",json.events[i].occurs_at_local)
+    }
+    res.send(js_res)
+}).catch((err) => {
+    console.err(err);
+});
+   
+})
 // Start server
 app.listen(3000)

@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
         <link rel="stylesheet" href="css/app.css">
+        <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
     </head>
     <body ng-cloak>
         <div ng-controller="FlightInputController">
@@ -57,8 +61,8 @@
                                     </md-card-header-text>
                                 </md-card-header>
                                 <md-card-content>
-                                    <label>Outbound: <span>{{ flight.DepartingFlight.depart_date }} - {{ flight.DepartingFlight.arrival_date }}</span></label><br>
-                                    <label>Return: <span>{{ flight.ReturnFlight.depart_date }} - {{ flight.ReturnFlight.arrival_date }}</span></label><br>
+                                    <label>Outbound: <span>{{ flight.DepartFlight.depart_date | flightTime}} - {{ flight.DepartFlight.arrival_date| flightTime}}</span></label><br>
+                                    <label>Return: <span>{{ flight.ReturnFlight.depart_date| flightTime}} - {{ flight.ReturnFlight.arrival_date| flightTime}}</span></label><br>
                                     <label>Price: <span>{{ flight.TotalFare | currency}}</span></label>
                                 </md-card-content>
                             </md-card>
@@ -88,3 +92,6 @@
         <script src="lib/angular-ui-router.min.js"></script>
     </body>
 </html>
+
+<!-- '2016-08-13T19:27:00' -->
+<!-- Mon Aug 15 2016 21:45:00 GMT-0700 (PDT) -->

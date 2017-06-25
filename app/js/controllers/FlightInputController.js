@@ -10,6 +10,25 @@ var FlightInputController = sabrettx.controller('FlightInputController', functio
         $scope.flight_check = true;
         
         if(countWeekendDays($scope.departing, $scope.return) / 2 >= 1) {
+            
+            $http({
+                url: 'http://localhost:3000/api/flight',
+                method: 'GET',
+                params: {
+                    origin: 'LAX',
+                    destination: 'DFW',
+                    departuredate: '2017-08-12',
+                    returndate: '2017-08-20'
+                }
+            }).then(
+                function(response) {
+                    $scope.flights = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
             $scope.no_weekend = false;
             $scope.yes_weekend = true;
         } else {
@@ -24,56 +43,47 @@ var FlightInputController = sabrettx.controller('FlightInputController', functio
     $scope.no_weekend = false;
     $scope.yes_weekend = false;
     
-    $scope.flights = [
-        {
-            DepartingFlight: {
-                depart_date: '2016-08-13T18:15:00',
-                arrival_date: '2016-08-13T19:27:00',
-                stops: '0'
-            },
-            ReturnFlight: {
-                depart_date: '2016-08-15T21:45:00',
-                arrival_date: '2016-08-16T04:43:00',
-                stops: '0'
-            },
-            TotalFare: '234'
-        },
-        {
-            DepartingFlight: {
-                depart_date: '2016-08-13T10:12:00',
-                arrival_date: '2016-08-13T12:22:00',
-                stops: '0'
-            },
-            ReturnFlight: {
-                depart_date: '2016-08-15T21:45:00',
-                arrival_date: '2016-08-16T04:43:00',
-                stops: '0'
-            },
-            TotalFare: '543'
-        },
-        {
-            DepartingFlight: {
-                depart_date: '2016-08-13T18:15:00',
-                arrival_date: '2016-08-13T19:27:00',
-                stops: '0'
-            },
-            ReturnFlight: {
-                depart_date: '2016-08-15T18:45:00',
-                arrival_date: '2016-08-16T06:43:00',
-                stops: '0'
-            },
-            TotalFare: '765'
-        }
-    ];
-    
-//    $http({
-//        method: 'GET';,
-//        url: '/instaFlights'
-//    }).then(function successCallback(response) {
-//        $scope.flights = response.PricedItineraries;
-//    }, function errorCallback(response) {
-//        console.log('HTTP Error');
-//    });
+//    $scope.flights = [
+//        {
+//            DepartingFlight: {
+//                depart_date: '2016-08-13T18:15:00',
+//                arrival_date: '2016-08-13T19:27:00',
+//                stops: '0'
+//            },
+//            ReturnFlight: {
+//                depart_date: '2016-08-15T21:45:00',
+//                arrival_date: '2016-08-16T04:43:00',
+//                stops: '0'
+//            },
+//            TotalFare: '234'
+//        },
+//        {
+//            DepartingFlight: {
+//                depart_date: '2016-08-13T10:12:00',
+//                arrival_date: '2016-08-13T12:22:00',
+//                stops: '0'
+//            },
+//            ReturnFlight: {
+//                depart_date: '2016-08-15T21:45:00',
+//                arrival_date: '2016-08-16T04:43:00',
+//                stops: '0'
+//            },
+//            TotalFare: '543'
+//        },
+//        {
+//            DepartingFlight: {
+//                depart_date: '2016-08-13T18:15:00',
+//                arrival_date: '2016-08-13T19:27:00',
+//                stops: '0'
+//            },
+//            ReturnFlight: {
+//                depart_date: '2016-08-15T18:45:00',
+//                arrival_date: '2016-08-16T06:43:00',
+//                stops: '0'
+//            },
+//            TotalFare: '765'
+//        }
+//    ];
 });
 
 function countWeekendDays( d0, d1 )
@@ -101,3 +111,12 @@ function dateHttpGetFormat(d1) {
     
     return year + '-' + month + '-' + date;
 }
+
+sabrettx.filter('flightTime', function() {
+    return function(date) {
+        console.log(date);
+        var jsDate = new Date(date);
+        var resultString = jsDate.toLocaleTimeString() + ' (' + jsDate.toDateString() + ')';
+        return resultString;
+     };
+});
