@@ -13,3 +13,8 @@
 #date div {
     display: inline;
 }
+
+#card div {
+    padding-left: 25px;
+    padding-right: 25px;
+}
