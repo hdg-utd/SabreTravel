@@ -88,7 +88,9 @@ md-card-content label span {
 
 #show-extra, #flight-extra {
     height: 600px;
-    border: 1px solid red;
+    border: 1px solid white;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 #extras {
@@ -104,7 +106,7 @@ md-card-content label span {
 #show-extra {
     float: right;
     width: 33%;
-    padding-left: 22px;
+    padding-left: 10px;
 
 }
 
