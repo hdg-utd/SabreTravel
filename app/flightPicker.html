@@ -76,18 +76,111 @@
         </div>
         <div ng-show="yes_weekend" id="extras">
             <h3>Weekend Experiences</h3>
+            <hr noshade>
             <div id="flight-extra" style="overflow-y: scroll;">
-                <ul>
+                <ul style = "list-style: none;" >
                     <li ng-repeat="flight in upsellflightsLAX | limitTo: 2">
-                        <label>{{ destination }} to LAX</label>
-                        <label>Departure Flight: <span>{{ flight.DepartFlight.depart_date | flightTime}}  <img style = " width: 75px; height: 50px"  ng-src="assets/horizontal.png"/> {{ flight.DepartFlight.arrival_date| flightTime}} </span></label><br>
-                        <label>Return Flight: <span> {{ flight.ReturnFlight.depart_date| flightTime}} <img style = " width: 75px; height: 50px"  ng-src="assets/horizontal.png"/>  {{ flight.ReturnFlight.arrival_date| flightTime}}</span></label><br>
-                        <label>Price: <span>{{ flight.TotalFare | currency}} </span></label>
+                        <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <md-title style="font-size: 75%"><span class="airportTitle"> {{ destination }} to LAX  </span></md-title>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content>
+                                <label>Departure Flight:  <span> {{ flight.DepartFlight.depart_date | flightTime}} </span></label>
+                                <label>Return Flight:  <span>{{ flight.ReturnFlight.depart_date| flightTime}}</span></label>
+                                <label>Price:  <span> {{ flight.TotalFare | currency}}</span></label>
+                            </md-card-content>
+                        </md-card>
+                    </li>
+                    <li ng-repeat="flight in upsellflightsSFO | limitTo: 2">
+                        <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <md-title style="font-size: 75%"><span class="airportTitle"> {{ destination }} to SFO  </span></md-title>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content>
+                                <label>Departure Flight:  <span> {{ flight.DepartFlight.depart_date | flightTime}} </span></label>
+                                <label>Return Flight:  <span>{{ flight.ReturnFlight.depart_date| flightTime}}</span></label>
+                                <label>Price:  <span> {{ flight.TotalFare | currency}}</span></label>
+                            </md-card-content>
+                        </md-card>
+                    </li>
+                    <li ng-repeat="flight in upsellflightsSEA | limitTo: 2">
+                        <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <md-title style="font-size: 75%"><span class="airportTitle"> {{ destination }} to SEA  </span></md-title>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content>
+                                <label>Departure Flight:  <span> {{ flight.DepartFlight.depart_date | flightTime}} </span></label>
+                                <label>Return Flight:  <span>{{ flight.ReturnFlight.depart_date| flightTime}}</span></label>
+                                <label>Price:  <span> {{ flight.TotalFare | currency}}</span></label>
+                            </md-card-content>
+                        </md-card>
+                    </li>
+                    <li ng-repeat="flight in upsellflightsLAS | limitTo: 2">
+                        <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <md-title style="font-size: 75%"><span class="airportTitle"> {{ destination }} to LAS  </span></md-title>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content>
+                                <label>Departure Flight:  <span> {{ flight.DepartFlight.depart_date | flightTime}} </span></label>
+                                <label>Return Flight:  <span>{{ flight.ReturnFlight.depart_date| flightTime}}</span></label>
+                                <label>Price:  <span> {{ flight.TotalFare | currency}}</span></label>
+                            </md-card-content>
+                        </md-card>
                     </li>
                 </ul>
             </div>
             <div id="show-extra" style="overflow-y: scroll;">
                 <ul style = "list-style: none;">
+                    <li ng-repeat="event in upsellEventsLAX.events">
+                        <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <md-title style="font-size: 75%"><span class="airportTitle"> {{ event.name }} </span></md-title>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content>
+                                <label>Time:  <span> {{ event.time | flightTime }}</span></label>
+                                <label>Venue:  <span> {{ event.venue }}</span></label>
+                                <label>Tickets Left:  <span> {{ event.availableTkt }}</span></label>
+                            </md-card-content>
+                        </md-card>
+                    </li>
+                    <li ng-repeat="event in upsellEventsSFO.events">
+                        <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <md-title style="font-size: 75%"><span class="airportTitle"> {{ event.name }} </span></md-title>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content>
+                                <label>Time:  <span> {{ event.time | flightTime }}</span></label>
+                                <label>Venue:  <span> {{ event.venue }}</span></label>
+                                <label>Tickets Left:  <span> {{ event.availableTkt }}</span></label>
+                            </md-card-content>
+                        </md-card>
+                    </li>
+                    <li ng-repeat="event in upsellEventsSEA.events">
+                        <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                            <md-card-header>
+                                <md-card-header-text>
+                                    <md-title style="font-size: 75%"><span class="airportTitle"> {{ event.name }} </span></md-title>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content>
+                                <label>Time:  <span> {{ event.time | flightTime }}</span></label>
+                                <label>Venue:  <span> {{ event.venue }}</span></label>
+                                <label>Tickets Left:  <span> {{ event.availableTkt }}</span></label>
+                            </md-card-content>
+                        </md-card>
+                    </li>
                     <li ng-repeat="event in upsellEventsLAS.events">
                         <md-card id="card" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
                             <md-card-header>
