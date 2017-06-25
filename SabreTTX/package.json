@@ -19,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "sabre-dev-studio": "^1.2.0"
+    "sabre-dev-studio": "^1.2.0",
+    "ticketevolution-node": "^1.1.0"
   }
 }
