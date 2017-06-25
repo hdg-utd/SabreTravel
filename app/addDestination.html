@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="sabrettx">
+<head>
+    <title>Add extra trip to ticket</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body ng-cloak>
+<div ng-controller="FlightInputController">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="./flightPicker.html" class="navbar-brand"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Sabre Travel</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div>
+
+        <H2> Add an extra destination to your ticket. Check out the choices below: </H2>
+
+            <md-card id="date" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Ibiza</span>
+                        <span class="md-subhead">+ $250</span>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-sm card-media"></div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button>Add Destination</md-button>
+                    <md-button>No Thanks</md-button>
+                </md-card-actions>
+            </md-card>
+    </div>
+</div>
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/FlightInputController.js"></script>
+<script src="lib/angular-ui-router.min.js"></script>
+</body>
+</html>

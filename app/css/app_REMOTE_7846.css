@@ -1,0 +1,20 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.navbar ul li:hover {
+    background-color: lightgray;
+}
+
+#date div {
+    display: inline;
+}
+
+#card div {
+    padding-left: 25px;
+    padding-right: 25px;
+}
