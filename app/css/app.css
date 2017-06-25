@@ -10,7 +10,53 @@
     background-color: lightgray;
 }
 
-<<<<<<< HEAD
+.jumbotron {
+    text-align: center;
+}
+
+body {
+    font-size: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+fieldset {
+    padding: 20px 15%;
+}
+
+#city label {
+    margin-right: 10px;
+}
+
+#city input {
+    margin-right: 118px;
+}
+
+
+form #dates {
+    display: inline-block;
+}
+
+#dates #departing, #dates #return {
+    margin-right: 20px;
+}
+
+#departing {
+    float: left; 
+}
+
+#return {
+    float: right;
+}
+
+#submit {
+    text-align: center;
+    margin-top: 35px;
+}
+
+#submit button {
+    font-size: 25px;
+}
+
 #flight-list {
     height: 500px;
     border: 1px solid black; 
