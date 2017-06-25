@@ -1,6 +1,6 @@
 'use strict';
 
-var sabrettx = angular.module('sabrettx', ['ui.router']);
+var sabrettx = angular.module('sabrettx', ['ngMaterial', 'ui.router']);
 
 sabrettx.config(function($stateProvider) {
     var flightChooseState = {

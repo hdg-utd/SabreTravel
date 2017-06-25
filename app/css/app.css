@@ -9,7 +9,3 @@
 .navbar ul li:hover {
     background-color: lightgray;
 }
-
-#date div {
-    display: inline;
-}
