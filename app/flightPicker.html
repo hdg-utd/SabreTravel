@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="sabrettx">
+    <head>
+        <title>UpSell Travel | Home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body ng-cloak>
+        <div ng-controller="FlightInputController">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="./flightPicker.html" class="navbar-brand"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> UpSell Travel</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="jumbotron">
+                <h1>Welcome to UpSell Travel</h1>
+                Enter Your Customer's Flight Details To Get Started
+            </div>
+            <div class="container">
+                <form>
+                    <fieldset id="city">
+                        <label for="originCity">Origin: </label>
+                        <input id="originCity" type="text" name="originCity" required ng-model="flight.origin">
+                        <label for="destinationCity">Destination: </label>
+                        <input id="destinationCity" type="text" name="destinationCity" required ng-model="flight.destination">
+                    </fieldset>
+                    <fieldset id="dates">
+                        <div id="departing">
+                            <label for="departing">Departure Date: </label><br>
+                            <md-calendar id="departing" ng-model="flight.departing"></md-calendar>
+                        </div>
+                        <div id="return">
+                            <label for="return">Return Date: </label><br>
+                            <md-calendar required id="return" ng-model="flight.return"></md-calendar>
+                        </div>
+                    </fieldset>
+                    <fieldset id="submit">
+                        <button type="submit" ng-click="saveFlightData(flight)">Search</button>
+                    </fieldset>
+                </form>
+                <div id="no-flight" ng-show="no_weekend">
+                    No Free Weekends for your trip
+                </div>
+                <div id="flight-list" style="overflow-y: scroll;" ng-show="flight_check">
+                    <ul>
+                        <li ng-repeat="flight in flights">
+                            <label>{{ flight.origin }} to {{ flight.destination }}</label>
+                            <label> Departure: {{ flight.departing | date:'MM/dd/yyyy' }}</label>
+                            <label> Return: {{ flight.return | date:'MM/dd/yyyy' }}</label>
+                            <label> Price: {{ flight.price | currency }}</label>
+                        </li>
+                    </ul>
+                </div>
+                <div ng-show="yes_weekend" id="extras">
+                    <div id="flight-extra" style="overflow-y: scroll;">
+                        Flight Extras
+                    </div>
+                    <div id="show-extra" style="overflow-y: scroll;">
+                        Show Extras
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers/FlightInputController.js"></script>
+        <script src="lib/angular-ui-router.min.js"></script>
+    </body>
+</html>

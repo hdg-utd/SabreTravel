@@ -1,0 +1,36 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.navbar ul li:hover {
+    background-color: lightgray;
+}
+
+#flight-list {
+    height: 500px;
+    border: 1px solid black; 
+}
+
+#show-extra, #flight-extra {
+    height: 200px;
+    border: 1px solid red; 
+}
+
+#extras {
+    display: inline-block;
+    width: 100%;
+}
+
+#flight-extra {
+    float: left;
+    width: 65%;
+}
+
+#show-extra {
+    float: right;
+    width: 35%;
+}
