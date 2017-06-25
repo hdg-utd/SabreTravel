@@ -52,7 +52,7 @@ app.get('/api/flight', function (req, res) {
     params['returndate'] = '2017-07-11'
     params['limit'] = 10
     */
-
+    
     var js_result = [];
     
     sds.instaflights_search(params, function(error, data) {
