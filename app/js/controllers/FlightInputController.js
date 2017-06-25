@@ -1,5 +1,7 @@
 'use strict';
 
 var FlightInputController = sabrettx.controller('FlightInputController', function($scope) {
-    $scope.name = 'Sabre';
+    $scope.saveFlightData = function(flight) {
+        
+    }
 })
