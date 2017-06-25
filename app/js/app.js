@@ -1,3 +1,3 @@
 'use strict';
 
-var airplane = angular.module('airplane', []);
+var sabrettx = angular.module('sabrettx', []);
