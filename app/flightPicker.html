@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="sabrettx">
+    <head>
+        <title>Sabre Travel</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body ng-cloak>
+        <div ng-controller="FlightInputController">
+            <div class="container">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="./flightPicker.html" class="navbar-brand"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>Sabre Travel</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div>
+                <form>
+                    <fieldset id="city">
+                        <label for="originCity">Origin: </label>
+                        <input id="originCity" type="text" name="originCity" required ng-model="flight.origin">
+                        <label for="destinationCity">Destination: </label>
+                        <input id="destinationCity" type="text" name="destinationCity" required ng-model="flight.destination">
+                    </fieldset id="date">
+                    <fieldset>
+                        <div>
+                            <label for="departing">Departure Date: </label>
+                            <md-calendar id="departing" ng-model="flight.departing"></md-calendar>
+                        </div>
+                        <div>
+                            <label for="return">Return Date: </label>
+                            <md-calendar id="return" ng-model="flight.return"></md-calendar>
+                        </div>
+                    </fieldset>
+                    <button type="submit" ng-click="saveFlightData(flight)">Search</button>
+                </form>
+                <div>
+                    Origin: {{flightInput.origin}}
+                    Destination: {{flightInput.destination}}
+                    Departure: {{flightInput.departing}}
+                    Return: {{flightInput.return}}
+                </div>
+            </div>
+        </div>
+        <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers/FlightInputController.js"></script>
+        <script src="lib/angular-ui-router.min.js"></script>
+    </body>
+</html>
