@@ -50,10 +50,18 @@
                 <div id="flight-list" style="overflow-y: scroll;" ng-show="flight_check">
                     <ul>
                         <li ng-repeat="flight in flights">
-                            <label>{{ flight.origin }} to {{ flight.destination }}</label>
-                            <label> Departure: {{ flight.departing | date:'MM/dd/yyyy' }}</label>
-                            <label> Return: {{ flight.return | date:'MM/dd/yyyy' }}</label>
-                            <label> Price: {{ flight.price | currency }}</label>
+                            <md-card>
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <md-title><span class="origin"><strong>Origin:</strong></span> {{ origin }} <span class="destination"><strong>Destination:</strong></span> {{ destination }}</md-title>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-card-content>
+                                    <label>Outbound: <span>{{ flight.DepartingFlight.depart_date }} - {{ flight.DepartingFlight.arrival_date }}</span></label><br>
+                                    <label>Return: <span>{{ flight.ReturnFlight.depart_date }} - {{ flight.ReturnFlight.arrival_date }}</span></label><br>
+                                    <label>Price: <span>{{ flight.TotalFare | currency}}</span></label>
+                                </md-card-content>
+                            </md-card>
                         </li>
                     </ul>
                 </div>
