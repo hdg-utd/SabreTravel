@@ -11,14 +11,18 @@ var FlightInputController = sabrettx.controller('FlightInputController', functio
         
         if(countWeekendDays($scope.departing, $scope.return) / 2 >= 1) {
             
+            var saturdayDate = flight.departing.addDays(6 - flight.departing.getDay());
+            var sundayDate = saturdayDate.addDays(1);
+            
+            // Initial Call
             $http({
                 url: 'http://localhost:3000/api/flight',
                 method: 'GET',
                 params: {
-                    origin: 'LAX',
-                    destination: 'DFW',
-                    departuredate: '2017-08-12',
-                    returndate: '2017-08-20'
+                    origin: $scope.origin,
+                    destination: $scope.destination,
+                    departuredate: dateHttpGetFormat($scope.departing),
+                    returndate: dateHttpGetFormat($scope.return)
                 }
             }).then(
                 function(response) {
@@ -28,6 +32,198 @@ var FlightInputController = sabrettx.controller('FlightInputController', functio
                     console.log("Error: " + response);
                 }
             );
+            
+            // UpSell Flights - Barcelona
+            $http({
+                url: 'http://localhost:3000/api/flight',
+                method: 'GET',
+                params: {
+                    origin: 'LHR',
+                    destination: 'BCN',
+                    departuredate: dateHttpGetFormat(saturdayDate),
+                    returndate: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellflightsBCN = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Flights - Copenhagen
+            $http({
+                url: 'http://localhost:3000/api/flight',
+                method: 'GET',
+                params: {
+                    origin: 'LHR',
+                    destination: 'CPH',
+                    departuredate: dateHttpGetFormat(saturdayDate),
+                    returndate: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellflightsCPH = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Flights - Paris
+            $http({
+                url: 'http://localhost:3000/api/flight',
+                method: 'GET',
+                params: {
+                    origin: 'LHR',
+                    destination: 'CDG',
+                    departuredate: dateHttpGetFormat(saturdayDate),
+                    returndate: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellflightsCDG = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Flights - Madrid
+            $http({
+                url: 'http://localhost:3000/api/flight',
+                method: 'GET',
+                params: {
+                    origin: 'LHR',
+                    destination: 'MAD',
+                    departuredate: dateHttpGetFormat(saturdayDate),
+                    returndate: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellflightsMAD = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Flights - Rome
+            $http({
+                url: 'http://localhost:3000/api/flight',
+                method: 'GET',
+                params: {
+                    origin: 'LHR',
+                    destination: 'FCO',
+                    departuredate: dateHttpGetFormat(saturdayDate),
+                    returndate: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellflightsFCO = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            
+            // UpSell Events - Los Angeles
+            $http({
+                url: 'http://localhost:3000/api/events',
+                method: 'GET',
+                params: {
+                    lat: "34.052234",
+                    lon: "-118.243685",
+                    occurs_at_gte: dateHttpGetFormat(saturdayDate),
+                    occurs_at_lt: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellEventsLAX = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Events - SF
+            $http({
+                url: 'http://localhost:3000/api/events',
+                method: 'GET',
+                params: {
+                    lat: "37.774929",
+                    lon: "-122.419416",
+                    occurs_at_gte: dateHttpGetFormat(saturdayDate),
+                    occurs_at_lt: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellEventsSFO = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Events - Seattle
+            $http({
+                url: 'http://localhost:3000/api/events',
+                method: 'GET',
+                params: {
+                    lat: "47.606209",
+                    lon: "-122.332071",
+                    occurs_at_gte: dateHttpGetFormat(saturdayDate),
+                    occurs_at_lt: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellEventsSEA = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Events - Dallas
+            $http({
+                url: 'http://localhost:3000/api/events',
+                method: 'GET',
+                params: {
+                    lat: "32.776664",
+                    lon: "-96.796988",
+                    occurs_at_gte: dateHttpGetFormat(saturdayDate),
+                    occurs_at_lt: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellEventsDFW = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
+            // UpSell Events - Chicago
+            $http({
+                url: 'http://localhost:3000/api/events',
+                method: 'GET',
+                params: {
+                    lat: "41.878114",
+                    lon: "-87.629798",
+                    occurs_at_gte: dateHttpGetFormat(saturdayDate),
+                    occurs_at_lt: dateHttpGetFormat(sundayDate)
+                }
+            }).then(
+                function(response) {
+                    $scope.upsellEventsORD = response.data;
+                },
+                function(response) {
+                    console.log("Error: " + response);
+                }
+            );
+            
             
             $scope.no_weekend = false;
             $scope.yes_weekend = true;
@@ -112,9 +308,14 @@ function dateHttpGetFormat(d1) {
     return year + '-' + month + '-' + date;
 }
 
+Date.prototype.addDays = function(days) {
+  var dat = new Date(this.valueOf());
+  dat.setDate(dat.getDate() + days);
+  return dat;
+}
+
 sabrettx.filter('flightTime', function() {
     return function(date) {
-        console.log(date);
         var jsDate = new Date(date);
         var resultString = jsDate.toLocaleTimeString() + ' (' + jsDate.toDateString() + ')';
         return resultString;

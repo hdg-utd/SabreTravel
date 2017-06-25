@@ -74,7 +74,14 @@
                         Flight Extras
                     </div>
                     <div id="show-extra" style="overflow-y: scroll;">
-                        Show Extras
+                        <ul>
+                            <li ng-repeat="event in upsellEventsORD.events">
+                                <h6>{{ event.name }}</h6>
+                                <label>Time: {{ event.time | flightTime }}</label>
+                                <label>Venue: {{ event.venue }}</label>
+                                <label>Tickets Left: {{ event.availableTkt }}</label>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
