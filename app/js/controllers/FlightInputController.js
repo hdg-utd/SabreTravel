@@ -101,3 +101,11 @@ function dateHttpGetFormat(d1) {
     
     return year + '-' + month + '-' + date;
 }
+
+sabrettx.filter('flightTime', function() {
+    return function(date) {
+        var jsDate = new Date(date);
+        var resultString = jsDate.toLocaleTimeString() + ' (' + jsDate.toDateString() + ')';
+        return resultString;
+     };
+});
