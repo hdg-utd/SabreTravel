@@ -29,13 +29,13 @@ app.all('*', function(req, res, next) {
 app.get('/api/flight', function (req, res) {
     var params = {}
 
-    params['origin'] = req.params['origin']
-    params['destination'] = req.params['destination']
-    params['departuredate'] = req.params['departuredate']
-    params['returndate'] = req.params['returndate']
+    params['origin'] = req.query['origin']
+    params['destination'] = req.query['destination']
+    params['departuredate'] = req.query['departuredate']
+    params['returndate'] = req.query['returndate']
     params['limit'] = 5
 
-    console.log(params);
+    console.log(req.query);
     
     // For testing
     /*
