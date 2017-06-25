@@ -123,7 +123,7 @@ app.get('/api/events',function(req,res){
     search_params['occurs_at.lt']='2017-06-28'
     */
     var url='https://api.sandbox.ticketevolution.com/v9/events?lat='+search_params["lat"]+'&lon='+search_params["lon"]+'&within='
-    +search_params["within"]+'&occurs_at.gte='+search_params["occurs_at.gte"]+'&occurs_at.lt='+search_params["occurs_at.lt"]+'&page=1&per_page=7'
+    +search_params["within"]+'&occurs_at.gte='+search_params["occurs_at.gte"]+'&occurs_at.lt='+search_params["occurs_at.lt"]+'&page=1&per_page=2'
     
     var data=tevoClient.getJSON(url).then((json) => {
     console.log('Got events from API.', json.total_entries," len ",json.events.length);
