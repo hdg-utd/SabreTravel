@@ -13,7 +13,7 @@ var sds = new SabreDevStudioFlight({
     uri:           base_url,
 })
 
-app.get('/', function (req, res) {
+app.get('/api/flight', function (req, res) {
     var params = {}
 
     params['origin'] = req.params['origin']
@@ -32,8 +32,6 @@ app.get('/', function (req, res) {
     */
 
     var js_res = {}
-
-    //console.log('request params\n' + req.params)
 
     sds.instaflights_search(params, function(error, data) {
         if (error) {
@@ -72,34 +70,11 @@ app.get('/', function (req, res) {
                         ['PassengerFare']['TotalFare']['Amount'];
             }
 
-            //console.log(get_weekends(new Date('2017-07-07'), new Date('2017-07-16')))
-
         }
 
         res.send(js_res)
     })
 })
-
-var get_weekends = function (start, end) {
-    weekend_dates = [];
-    d = start
-
-    while (d < end) {
-        var day = d.getDay();
-        console.log(day);
-
-        // If day is a weekend
-        if ( (day === 6) || (day === 0) ) {
-            console.log(new Date(d.getTime()) );
-            weekend_dates.push(new Date(d.getTime()) );
-        }
-
-        d.setDate(d.getDate() + 1);
-    }
-
-    return weekend_dates
-}
-
 
 // Start server
 app.listen(3000)
