@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
     params['origin'] = 'JFK'
     params['destination'] = 'LAX'
     params['departuredate'] = '2017-07-07'
-    params['returndate'] = '2017-07-08'
+    params['returndate'] = '2017-07-11'
     params['limit'] = 10
 
     //console.log('request params\n' + req.params)
@@ -43,13 +43,38 @@ app.get('/', function (req, res) {
 
             // Fill ticket info for each flight itenerary
             for (i = 0; i < json.length; i++) {
-                console.log( json[i] );
                 console.log( json[i]['AirItineraryPricingInfo']
                         ['PTC_FareBreakdowns']['PTC_FareBreakdown']
                         ['PassengerFare']['TotalFare']['Amount'] );
-                console.log( json[i]['AirItinerary']['OriginDestinationOptions']
-                        ['OriginDestinationOption'].length );
+
+                // Extract depart flight info
+                // --------------------------
+                var df = json[i]['AirItinerary']['OriginDestinationOptions']
+                        ['OriginDestinationOption'][0]['FlightSegment'];
+
+                res['DepartFlight'] = {}
+                res['DepartFlight']['stops'] = df.length-2;
+                res['DepartFlight']['depart_date'] = df[0]['DepartureDateTime'];
+                res['DepartFlight']['arrival_date'] = df[df.length-1]['ArrivalDateTime'];
+
+                // Extract return flight info
+                // --------------------------
+                var rf = json[i]['AirItinerary']['OriginDestinationOptions']
+                        ['OriginDestinationOption'][1]['FlightSegment'];
+
+                res['ReturnFlight'] = {}
+                res['ReturnFlight']['stops'] = rf.length-2;
+                res['ReturnFlight']['depart_date'] = rf[0]['DepartureDateTime'];
+                res['ReturnFlight']['arrival_date'] = rf[rf.length-1]['ArrivalDateTime'];
+
+                // Extract total fare
+                // --------------------------
+                res['TotalFare'] = json[i]['AirItineraryPricingInfo']
+                        ['PTC_FareBreakdowns']['PTC_FareBreakdown']
+                        ['PassengerFare']['TotalFare']['Amount'];
             }
+
+            console.log(res);
             //console.log(get_weekends(new Date('2017-07-07'), new Date('2017-07-16')))
         }
     })
