@@ -2,6 +2,7 @@ var express = require('express')
 var http = require('http')
 var SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight')
 var oauth2 = require('simple-oauth2')
+var path = require("path");
 var app = express()
 
 var TevoClient = require('ticketevolution-node');
@@ -34,6 +35,9 @@ app.all('*', function(req, res, next) {
       next();
     }
 });
+
+//app.use('/static', express.static('../app/flightPicker.html'))
+app.use('/', express.static(path.join(__dirname, '../app')))
 
 app.get('/api/flight', function (req, res) {
     var params = {}
