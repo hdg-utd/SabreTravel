@@ -15,20 +15,21 @@ var sds = new SabreDevStudioFlight({
 
 app.get('/', function (req, res) {
     var params = {}
-    /*
+
     params['origin'] = req.params['origin']
     params['destination'] = req.params['destination']
     params['departuredate'] = req.params['departuredate']
     params['returndate'] = req.params['returndate']
     params['limit'] = 5
-    */
 
     // For testing
+    /*
     params['origin'] = 'JFK'
     params['destination'] = 'LAX'
     params['departuredate'] = '2017-07-07'
     params['returndate'] = '2017-07-11'
     params['limit'] = 10
+    */
 
     var js_res = {}
 
