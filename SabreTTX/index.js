@@ -122,7 +122,7 @@ app.get('/api/events',function(req,res){
     */
     
     var url='https://api.sandbox.ticketevolution.com/v9/events?lat='+search_params["lat"]+'&lon='+search_params["lon"]+'&within='
-    +search_params["within"]+'&occurs_at.gte='+search_params["occurs_at_gte"]+'&occurs_at.lt='+search_params["occurs_at_lt"]+'&page=1&per_page=7'
+    +search_params["within"]+'&occurs_at.gte='+search_params["occurs_at_gte"]+'&occurs_at.lt='+search_params["occurs_at_lt"]+'&page=1&per_page=2'
     
     var data=tevoClient.getJSON(url).then((json) => {
   
@@ -140,7 +140,13 @@ app.get('/api/events',function(req,res){
 }).catch((err) => {
     console.log(err);
 });
-   
 })
+
+function get_api (addr) {
+    http.get('https://maps.googleapis.com/maps/api/geocode/json?address="' + addr + '"', (res) => {
+        return res['geometry']['location'];
+    });
+}
+
 // Start server
 app.listen(3000)
