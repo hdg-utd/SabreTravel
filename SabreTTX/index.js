@@ -30,6 +30,8 @@ app.get('/', function (req, res) {
     params['returndate'] = '2017-07-11'
     params['limit'] = 10
 
+    var js_res = {}
+
     //console.log('request params\n' + req.params)
 
     sds.instaflights_search(params, function(error, data) {
@@ -39,47 +41,42 @@ app.get('/', function (req, res) {
         } else {
             // Your success handling here
             var json = JSON.parse(data)['PricedItineraries'];
-            var res = {}
 
             // Fill ticket info for each flight itenerary
             for (i = 0; i < json.length; i++) {
-                console.log( json[i]['AirItineraryPricingInfo']
-                        ['PTC_FareBreakdowns']['PTC_FareBreakdown']
-                        ['PassengerFare']['TotalFare']['Amount'] );
-
                 // Extract depart flight info
                 // --------------------------
                 var df = json[i]['AirItinerary']['OriginDestinationOptions']
                         ['OriginDestinationOption'][0]['FlightSegment'];
 
-                res['DepartFlight'] = {}
-                res['DepartFlight']['stops'] = df.length-2;
-                res['DepartFlight']['depart_date'] = df[0]['DepartureDateTime'];
-                res['DepartFlight']['arrival_date'] = df[df.length-1]['ArrivalDateTime'];
+                js_res['DepartFlight'] = {}
+                js_res['DepartFlight']['stops'] = df.length-2;
+                js_res['DepartFlight']['depart_date'] = df[0]['DepartureDateTime'];
+                js_res['DepartFlight']['arrival_date'] = df[df.length-1]['ArrivalDateTime'];
 
                 // Extract return flight info
                 // --------------------------
                 var rf = json[i]['AirItinerary']['OriginDestinationOptions']
                         ['OriginDestinationOption'][1]['FlightSegment'];
 
-                res['ReturnFlight'] = {}
-                res['ReturnFlight']['stops'] = rf.length-2;
-                res['ReturnFlight']['depart_date'] = rf[0]['DepartureDateTime'];
-                res['ReturnFlight']['arrival_date'] = rf[rf.length-1]['ArrivalDateTime'];
+                js_res['ReturnFlight'] = {}
+                js_res['ReturnFlight']['stops'] = rf.length-2;
+                js_res['ReturnFlight']['depart_date'] = rf[0]['DepartureDateTime'];
+                js_res['ReturnFlight']['arrival_date'] = rf[rf.length-1]['ArrivalDateTime'];
 
                 // Extract total fare
                 // --------------------------
-                res['TotalFare'] = json[i]['AirItineraryPricingInfo']
+                js_res['TotalFare'] = json[i]['AirItineraryPricingInfo']
                         ['PTC_FareBreakdowns']['PTC_FareBreakdown']
                         ['PassengerFare']['TotalFare']['Amount'];
             }
 
-            console.log(res);
             //console.log(get_weekends(new Date('2017-07-07'), new Date('2017-07-16')))
-        }
-    })
 
-    res.send('hello world')
+        }
+
+        res.send(js_res)
+    })
 })
 
 var get_weekends = function (start, end) {
