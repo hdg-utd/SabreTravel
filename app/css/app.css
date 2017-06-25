@@ -62,6 +62,20 @@ form #dates {
     border: 1px solid black; 
 }
 
+md-title .origin{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+md-title .destination {
+    margin-left: 100px;
+}
+
+md-card-content label span {
+    font-weight: normal;
+    margin-left: 10px;
+}
+
 #show-extra, #flight-extra {
     height: 200px;
     border: 1px solid red; 

@@ -26,18 +26,43 @@ var FlightInputController = sabrettx.controller('FlightInputController', functio
     
     $scope.flights = [
         {
-            origin: "BOM",
-            destination: "ATL",
-            departing: "2017-06-23",
-            return: "2017-07-23",
-            price: "345"
+            DepartingFlight: {
+                depart_date: '2016-08-13T18:15:00',
+                arrival_date: '2016-08-13T19:27:00',
+                stops: '0'
+            },
+            ReturnFlight: {
+                depart_date: '2016-08-15T21:45:00',
+                arrival_date: '2016-08-16T04:43:00',
+                stops: '0'
+            },
+            TotalFare: '234'
         },
         {
-            origin: "DFW",
-            destination: "LON",
-            departing: "2017-03-22",
-            return: "2017-05-13",
-            price: "234"
+            DepartingFlight: {
+                depart_date: '2016-08-13T10:12:00',
+                arrival_date: '2016-08-13T12:22:00',
+                stops: '0'
+            },
+            ReturnFlight: {
+                depart_date: '2016-08-15T21:45:00',
+                arrival_date: '2016-08-16T04:43:00',
+                stops: '0'
+            },
+            TotalFare: '543'
+        },
+        {
+            DepartingFlight: {
+                depart_date: '2016-08-13T18:15:00',
+                arrival_date: '2016-08-13T19:27:00',
+                stops: '0'
+            },
+            ReturnFlight: {
+                depart_date: '2016-08-15T18:45:00',
+                arrival_date: '2016-08-16T06:43:00',
+                stops: '0'
+            },
+            TotalFare: '765'
         }
     ];
     
@@ -76,3 +101,11 @@ function dateHttpGetFormat(d1) {
     
     return year + '-' + month + '-' + date;
 }
+
+sabrettx.filter('flightTime', function() {
+    return function(date) {
+        var jsDate = new Date(date);
+        var resultString = jsDate.toLocaleTimeString() + ' (' + jsDate.toDateString() + ')';
+        return resultString;
+     };
+});
