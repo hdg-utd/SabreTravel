@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/hdg-utd/SabreTravel/issues"
   },
-  "homepage": "https://github.com/hdg-utd/SabreTravel#readme"
+  "homepage": "https://github.com/hdg-utd/SabreTravel#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
